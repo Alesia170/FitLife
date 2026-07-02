@@ -1,26 +1,86 @@
 # Проект FitLife - MVP версия 1.0
 
-
-# 1. Знакомство
-# TODO: Спроси у пользователя имя и сохрани в переменную user_name
-# TODO: Спроси возраст и сохрани в переменную user_age (не забудь преобразовать в число)
+WATER_PER_KG = 30
+ML_IN_LITER = 1000
 
 
-# 2. Сбор данных
-# TODO: Запроси вес (в кг) и сохрани в user_weight (тип float)
-# TODO: Запроси рост (в метрах, например 1.75) и сохрани в user_height (тип float)
+def input_name(message):
+    """Запрашивает у пользователя имя"""
+    while True:
+        user_name = input(message).strip()
+        if user_name.isalpha():
+            return user_name
+        else:
+            print("Ошибка: имя должно содержать только буквы")
 
 
-# 3. Логика расчетов (Функции как "черный ящик": используем арифметику)
-# Формула ИМТ: вес разделить на (рост в квадрате)
-# TODO: Рассчитай bmi (Индекс массы тела)
+def input_weight_float(message, min_weight, max_weight):
+    """Запрашивает у пользователя корректный вес"""
+    while True:
+        try:
+            weight = float(input(message))
+            if min_weight < weight < max_weight:
+                return weight
+            print(
+                "Ошибка: вес должен быть в пределе от 0 до 400")
+        except ValueError:
+            print("Ошибка: вес должен быть числом")
 
 
-# Подсчет воды: вес * 30 мл
-# TODO: Рассчитай water_needed
+def input_height_float(message, min_height, max_height):
+    """Запрашивает у пользователя корректный рост"""
+    while True:
+        try:
+            height = float(input(message))
+            if min_height < height < max_height:
+                return height
+            print(
+                "Ошибка: рост должен быть в пределе от 0 до 2.3")
+        except ValueError:
+            print("Ошибка: рост должен быть числом")
 
 
-# 4. Вывод красивого результата
-# TODO: Используй f-строку, чтобы вывести приветствие, например: "Привет, Иван!"
-# TODO: Выведи возраст, ИМТ (округленный до 1 знака) и норму воды.
+def input_age_int(message, min_value, max_value):
+    """Запрашивает у пользователя корректное число возраста"""
+    while True:
+        try:
+            value = int(input(message))
+            if min_value < value < max_value:
+                return value
+            print("Ошибка: возраст должен быть в пределе от 0 до 100")
+        except ValueError:
+            print("Ошибка: возраст должен быть числом")
+
+
+user_name = input_name("Введите пожалуйста ваше имя ")
+user_age = input_age_int("Введите пожалуйста ваш возраст ", 0, 100)
+user_weight = input_weight_float("Введите ваш вес в кг ", 0, 400)
+user_height = input_height_float(
+    "Введите пожалуйста ваш рост в метрах, например 1.75 ", 0, 2.3)
+
+
+def calc_bmi(user_weight, user_height):
+    """Расчёт индекса массы тела
+    user_weight: вес человека
+    user_height: рост человека
+    """
+    bmi = round(user_weight / (user_height ** 2), 1)
+    return bmi
+
+
+def calc_water(user_weight):
+    """Расчёт нормы воды в л
+    user_weight: вес человека
+    """
+    water_ml = user_weight * WATER_PER_KG
+    water_l = water_ml / ML_IN_LITER
+    return water_l
+
+
+bmi = calc_bmi(user_weight, user_height)
+water_l = calc_water(user_weight)
+
+print(f"Отчет для пользователя: {user_name} ({user_age} г.)")
+print(f"Твой Индекс Массы Тела: {bmi}")
+print(f"Рекомендуемая норма воды: {water_l} л. в день")
 print("Расчет окончен. Будьте здоровы!")
