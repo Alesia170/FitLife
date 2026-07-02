@@ -64,17 +64,14 @@ def calc_bmi(user_weight, user_height):
     user_weight: вес человека
     user_height: рост человека
     """
-    bmi = round(user_weight / (user_height ** 2), 1)
-    return bmi
+    return round(user_weight / (user_height ** 2), 1)
 
 
 def calc_water(user_weight):
     """Расчёт нормы воды в л
     user_weight: вес человека
     """
-    water_ml = user_weight * WATER_PER_KG
-    water_l = water_ml / ML_IN_LITER
-    return water_l
+    return user_weight * WATER_PER_KG / ML_IN_LITER
 
 
 bmi = calc_bmi(user_weight, user_height)
