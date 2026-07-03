@@ -4,6 +4,21 @@ WATER_PER_KG = 30
 ML_IN_LITER = 1000
 
 
+def calc_bmi(user_weight, user_height):
+    """Расчёт индекса массы тела
+    user_weight: вес человека
+    user_height: рост человека
+    """
+    return round(user_weight / (user_height ** 2), 1)
+
+
+def calc_water(user_weight):
+    """Расчёт нормы воды в л
+    user_weight: вес человека
+    """
+    return user_weight * WATER_PER_KG / ML_IN_LITER
+
+
 def input_name(message):
     """Запрашивает у пользователя имя"""
     while True:
@@ -58,26 +73,13 @@ user_weight = input_weight_float("Введите ваш вес в кг ", 0, 400
 user_height = input_height_float(
     "Введите пожалуйста ваш рост в метрах, например 1.75 ", 0, 2.3)
 
-
-def calc_bmi(user_weight, user_height):
-    """Расчёт индекса массы тела
-    user_weight: вес человека
-    user_height: рост человека
-    """
-    return round(user_weight / (user_height ** 2), 1)
-
-
-def calc_water(user_weight):
-    """Расчёт нормы воды в л
-    user_weight: вес человека
-    """
-    return user_weight * WATER_PER_KG / ML_IN_LITER
-
-
 bmi = calc_bmi(user_weight, user_height)
 water_l = calc_water(user_weight)
 
 print(f"Отчет для пользователя: {user_name} ({user_age} г.)")
-print(f"Твой Индекс Массы Тела: {bmi}")
+print(f"Твой Индекс Массы Тела(ИМТ): {bmi}")
+print(
+    "ИМТ показывает, насколько вес соотвествует росту, "
+    "при этом ИМТ не учитывает индивидуельные особенности огранизма")
 print(f"Рекомендуемая норма воды: {water_l} л. в день")
 print("Расчет окончен. Будьте здоровы!")
